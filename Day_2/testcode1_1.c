@@ -254,3 +254,103 @@ void ShiftOpTest(void)
    printbin(sreslval1);  
    printf("---\n");
 }
+
+//---------------------------
+void printMonth(int year, int month);
+void printMonthTitle(int year, int month);
+void printMonthName(int month);
+void printMonthBody(int year, int month);
+int getStartDay(int year, int month);
+int getTotalNumberOfDays(int year, int month);
+int getNumberOfDaysInMonth(int year, int month);
+int isLeapYear(int year);
+
+//year와 month를 전달 받아 해당 월을 출력 -> title, body
+void printMonth(int year, int month) {
+	printMonthTitle(year, month);
+	printMonthBody(year, month);
+}
+
+//월과 년도를 출력
+void printMonthTitle(int year, int month) {
+	printMonthName(month);
+	printf(" %d\n", year);
+	printf("-----------------------------\n");
+	printf(" Sun Mon Tue Wed Thu Fri Sat\n");
+}
+
+//month를 전달 받아 해당 달의 영어 이름을 출력
+void printMonthName(int month) {
+	switch (month) {
+	case 1: printf("January"); break;
+	case 2: printf("February"); break;
+	case 3: printf("March"); break;
+	case 4: printf("April"); break;
+	case 5: printf("May"); break;
+	case 6: printf("June"); break;
+	case 7: printf("July"); break;
+	case 8: printf("August"); break;
+	case 9: printf("September"); break;
+	case 10: printf("October"); break;
+	case 11: printf("November"); break;
+	case 12: printf("December"); break;
+	}
+}
+
+
+
+//year와 month를 전달 받아 요일과 일을 출력
+void printMonthBody(int year, int month) {
+	int startday = getStartDay(year, month);
+	int numberofdaysinmonth = getNumberOfDaysInMonth(year, month);
+
+	for (int i = 0; i < startday; i++) printf("    ");
+        int date = 1;
+        //date가 numberofdaysinmonth 보다 작은 동안
+        // date 를 "%4d" 서식으로 출력
+        //  단 date+startday 값이 7로 나누어지면 개행
+        //TODO1
+
+}
+
+// 해당 월의 시작하는 날이 몇 요일인지 찾는 함수
+int getStartDay(int year, int month) {
+	int startday1800 = 3;
+	int totalnumberofdays = getTotalNumberOfDays(year, month);
+	return (startday1800 + totalnumberofdays) % 7;
+}
+
+// 1800년 1월 1일 부터 며칠이 되는지 계산
+int getTotalNumberOfDays(int year, int month) {
+	int total = 0;
+	for (int i = 1800; i < year; i++) {
+		if (isLeapYear(i)) total += 366;
+		else total += 365;
+	}
+	for (int i = 1; i < month; i++) 
+           total = total + getNumberOfDaysInMonth(year, i);
+	return total;
+}
+
+
+int getNumberOfDaysInMonth(int year, int month) {
+	//TODO2 교재 참조
+
+}
+
+int isLeapYear(int year) {
+	if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) return 1;
+	else return 0;
+}
+
+int MyCalanda(void) 
+{
+	int year = 2024; 
+        
+        for (int month = 1; month <= 12; month++) {
+              printMonth(year, month);
+              printf("\n");
+        }
+	return 0;
+}
+
