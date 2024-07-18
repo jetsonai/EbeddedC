@@ -221,3 +221,36 @@ void setBlinkTest_1(void)
 }
 
 //==========================================================
+
+void ShiftOpTest(void)
+{
+    int8_t sresrval1;
+    int8_t sresrval2;
+    int8_t sreslval1;
+    int8_t sreslval2;
+    int8_t stestnum = 0x31;
+    uint8_t uresrval1;
+    uint8_t uresrval2;
+    uint8_t ureslval1;
+    uint8_t ureslval2;
+    uint8_t utestnum = 0x31U;
+	
+    sresrval1 = stestnum / 2;
+    sresrval2 = stestnum >> 1;
+    sreslval1 = stestnum * 2;
+    sreslval2 = stestnum << 1;
+    uresrval1 = utestnum / 2;
+    uresrval2 = utestnum >> 1;
+    ureslval1 = utestnum * 2;
+    ureslval2 = utestnum << 1;  
+  
+   printf("stestnum / 2  : %d   \n", sresrval1 );
+   printbin(sresrval1);    
+   printf("stestnum >> 1  : %d   \n", sresrval2 );
+   printbin(sresrval2);     
+   printf("stestnum * 2  : %d   \n", sreslval1 );
+   printbin(sreslval1);    
+   printf("stestnum >> 1  : %d   \n", sreslval2 );
+   printbin(sreslval1);  
+   printf("---\n");
+}
