@@ -59,4 +59,48 @@ setVarRangeTest_1();
 
 ##   8개의 LED 가 차례로 BLINK 되는 실습
 
+=============================
+
+## header 파일에 추가
+
+#define TESTAPP_SHIFT           203
+
+#define TESTAPP_SHIFT_ROUND     204
+
+## c 파일에 추가
+
+void doTestProc(void)
+
+{ 
+
+    switch (TestAppMode) { 
+
+    case TESTAPP_TOGGLE_ALL:
+    
+      doToggleTest();
+      
+      break;
+      
+    case TESTAPP_STEP_BY_STEP:
+    
+      doBlinkTest();
+      
+      break;     
+      
+    case TESTAPP_SHIFT:
+    
+        doLedShiftTest();
+        
+        break;  
+        
+    case TESTAPP_SHIFT_ROUND:
+        
+        break;     
+        
+    }
+    
+}
+
+
+
     
