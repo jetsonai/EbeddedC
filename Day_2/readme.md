@@ -72,15 +72,19 @@ setVarRangeTest_1();
 void doTestProc(void)
 { 
     switch (TestAppMode) { 
+    
     case TESTAPP_TOGGLE_ALL:    
       doToggleTest();      
       break;      
+      
     case TESTAPP_STEP_BY_STEP:   
       doBlinkTest();     
-      break;           
+      break;         
+      
     case TESTAPP_SHIFT:    
         doLedShiftTest();     
         break;          
+        
     case TESTAPP_SHIFT_ROUND:      
     
         break;            
