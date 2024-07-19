@@ -71,7 +71,9 @@ setVarRangeTest_1();
 
 void doTestProc(void)
 { 
-    switch (TestAppMode) { 
+
+    switch (TestAppMode) 
+    { 
     
     case TESTAPP_TOGGLE_ALL:    
       doToggleTest();      
