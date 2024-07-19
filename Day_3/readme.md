@@ -13,5 +13,5 @@
   }
 
   
-# testcode2.c 와 testcode2.h 를 다운받아서 프로젝트에 add 해주세요.
+## testcode2.c 와 testcode2.h 를 다운받아서 프로젝트에 add 해주세요.
 
