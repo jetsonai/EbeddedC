@@ -70,35 +70,21 @@ setVarRangeTest_1();
 ## c 파일에 추가
 
 void doTestProc(void)
-
 { 
-
     switch (TestAppMode) { 
-
-    case TESTAPP_TOGGLE_ALL:
+    case TESTAPP_TOGGLE_ALL:    
+      doToggleTest();      
+      break;      
+    case TESTAPP_STEP_BY_STEP:   
+      doBlinkTest();     
+      break;           
+    case TESTAPP_SHIFT:    
+        doLedShiftTest();     
+        break;          
+    case TESTAPP_SHIFT_ROUND:      
     
-      doToggleTest();
-      
-      break;
-      
-    case TESTAPP_STEP_BY_STEP:
-    
-      doBlinkTest();
-      
-      break;     
-      
-    case TESTAPP_SHIFT:
-    
-        doLedShiftTest();
-        
-        break;  
-        
-    case TESTAPP_SHIFT_ROUND:
-        
-        break;     
-        
-    }
-    
+        break;            
+    }    
 }
 
 
