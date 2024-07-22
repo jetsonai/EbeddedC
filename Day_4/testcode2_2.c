@@ -237,3 +237,17 @@ void EndianConverterTestU(void) {
     printf(" bin Endian 16bit: 0x%02x%02x\n", converter.value8[0], converter.value8[1]);
     //printf(" bin Endian 8bit: 0x%02x\n", converter.value8[1]);
 }
+
+uint16_t swap16(uint16_t value) {
+    return (value >> 8) | (value << 8);
+}
+
+void EndianConverterTestS(void) {
+   uint16_t littleEndian16 = 0xABCD;
+
+    uint16_t bigEndian16 = swap16(littleEndian16);
+
+    printf(" little Endian 16bit: 0x%x\n", littleEndian16);
+    printf(" big Endian 16bit: 0x%x\n", bigEndian16);
+ 
+}
