@@ -21,15 +21,18 @@ extern uint8_t TestAppMode;
 
 extern uint8_t bStartBlink;
 
-#define TESTAPP_NONE            199    
-#define TESTAPP_ONOFF_ALL       200 
-#define TESTAPP_STEP_BY_STEP    201  
-#define TESTAPP_TOGGLE_ALL      202
-#define TESTAPP_SHIFT           203
-#define TESTAPP_SHIFT_ROUND     204
+#define TESTAPP_NONE            199u    
+#define TESTAPP_ONOFF_ALL       200u 
+#define TESTAPP_STEP_BY_STEP    201u  
+#define TESTAPP_TOGGLE_ALL      202u
+#define TESTAPP_SHIFT           203u
+#define TESTAPP_SHIFT_ROUND     204u
+#define TESTAPP_MAX             205u
 
 #define LED_CNT 8
 
+#define APP_TEST_1TIME1MODE       300u
+#define APP_TEST_TURNBYBUTTON     301u
 
 void SetLedOn(uint32_t LED_Pin, uint8_t bOn );
 
@@ -52,6 +55,7 @@ void setBlinkTest(void);
 void doBlinkTest(void);
 
 void setLedShiftTest(uint8_t bOn);
+void setLedShiftRoundTest(uint8_t bOn);
 
 void doLedShiftTest(void);
 
