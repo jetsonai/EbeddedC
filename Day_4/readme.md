@@ -1,5 +1,6 @@
 
 int32_t fibNI(int32_t n) 
+
 {
    int32_t previous = -1;
    int32_t result = 1;
@@ -15,4 +16,5 @@ int32_t fibNI(int32_t n)
    
    return result;
 }
+
 
