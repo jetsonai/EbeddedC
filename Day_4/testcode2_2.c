@@ -187,3 +187,18 @@ union unTemp
   uint32_t data32; 
 };
 
+void structunionTest(void)
+{
+   struct strTemp st1;
+   union unTemp un1;
+   
+   st1.data8 = 0xa1;
+   printf("st1.data8] addr:%p size:%d val:%x \n",  &(st1.data8), sizeof(st1.data8), st1.data8);
+   st1.data16 = 0xa1b1;
+   printf("st1.data16] addr:%p size:%d val:%x \n", &(st1.data16) , sizeof(st1.data16) , st1.data16);
+   st1.data32 = 0xa1b1c1d1;
+   printf("st1.data32] addr:%p size:%d val:%x \n",  &(st1.data32) , sizeof(st1.data32) , st1.data32);
+   printf("st1.data8] addr:%p size:%d val:%x \n", &(st1.data8) , sizeof(st1.data8) , st1.data8);
+   printf("=====\n");
+}
+
