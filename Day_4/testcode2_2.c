@@ -171,3 +171,19 @@ void dofibNITest(void)
    int32_t fibNum = fibNI(5);
    printf("fibNum:%d\n", fibNum);
 }
+
+
+struct strTemp
+{
+  uint8_t data8;
+  uint16_t data16;
+  uint32_t data32;
+};
+
+union unTemp
+{
+  uint8_t data8;
+  uint16_t data16;
+  uint32_t data32; 
+};
+
