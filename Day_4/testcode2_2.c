@@ -21,6 +21,22 @@ void pointerArrayTest1(void)
 }
 
 
+uint16_t swap16(uint16_t value) {
+    return (value >> 8) | (value << 8);
+}
+
+void EndianConverterTestS(void) {
+   uint16_t littleEndian16 = 0xABCD;
+
+    uint16_t bigEndian16 = swap16(littleEndian16);
+
+    printf(" little Endian 16bit: 0x%x\n", littleEndian16);
+    printf(" big Endian 16bit: 0x%x\n", bigEndian16);
+ 
+}
+
+
+
 void pointerArrayTest2(void)
 {
    uint8_t * ptr8 = 0;
