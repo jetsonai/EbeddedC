@@ -202,3 +202,22 @@ void structunionTest(void)
    printf("=====\n");
 }
 
+
+union EndianConverter {
+    uint16_t value16;
+    uint8_t value8[2];
+};
+
+void EndianConverterTestU(void) {
+   uint16_t littleEndian16 = 0xABCD;
+
+    union EndianConverter converter;
+
+    converter.value16= littleEndian16;
+    
+    printf(" little Endian 16bit: 0x%x\n", littleEndian16);
+
+    //converter.value16 = myhtons(littleEndian16);
+    printf(" bin Endian 16bit: 0x%02x%02x\n", converter.value8[0], converter.value8[1]);
+    //printf(" bin Endian 8bit: 0x%02x\n", converter.value8[1]);
+}
