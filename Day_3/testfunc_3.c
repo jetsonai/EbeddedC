@@ -1,19 +1,30 @@
 #include "stm32f1xx_hal.h"
 #include "testfunc.h"
 
+uint8_t bLedOn = PIN_SET_OFF;
 uint8_t bStartBlink = PIN_SET_OFF;
 uint8_t bStartShift = PIN_SET_OFF;
+uint8_t bStartShiftRound = PIN_SET_OFF;
 uint8_t blinkNum = 0;
-uint8_t TestSetMode;
+uint8_t directLeft = 1;
+uint8_t bBlock = 0;
+
 uint8_t TestAppMode = TESTAPP_SHIFT_ROUND;
-uint8_t bLedOn = PIN_SET_OFF;
+uint8_t TestSetMode = APP_TEST_1TIME1MODE;
 
 void BlinkStart(uint8_t bStart);
 
+void doTurnOnProc(void);
+void doTurnOffProc(void);
+
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-
-
+  if(GPIO_Pin == GPIO_PIN_7) {
+    doTurnOnProc();
+  } 
+  else if (GPIO_Pin == GPIO_PIN_9) {
+    doTurnOffProc();
+  }
 }
 
 void BlinkStart(uint8_t bStart)
@@ -43,6 +54,7 @@ static uint8_t bStartToggle = PIN_SET_OFF;
 
 void setAllToggleLed(uint8_t bOn)
 {
+  setAllLed(PIN_SET_OFF);
   bStartToggle = bOn;
 }
 
@@ -78,7 +90,6 @@ void setAllLed(uint8_t bOn)
   SetLedOn(7, bOn);
 }
 
-
 uint8_t ReadButton(uint32_t Btn_Pin)
 {
   uint8_t ret = BTN_STATE_OFF;
@@ -99,25 +110,25 @@ void SetLedOn(uint32_t LED_Pin, uint8_t bOn )
   switch(LED_Pin)
   {
   case 0:
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, bOn);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, (GPIO_PinState)bOn);
     break;
   case 1:
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, bOn);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, (GPIO_PinState)bOn);
     break;
   case 2:
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, bOn);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, (GPIO_PinState)bOn);
     break;
   case 3:
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, bOn);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, (GPIO_PinState)bOn);
     break;   
   case 4:
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, bOn);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, (GPIO_PinState)bOn);
     break;
   case 5:
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, bOn);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, (GPIO_PinState)bOn);
     break;
   case 6:
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, bOn);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, (GPIO_PinState)bOn);
     break;
   case 7:
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, bOn);
@@ -144,51 +155,73 @@ void doBtnProc(void)
     uint8_t bBtnOn = ReadButton(TURN_ON_BTN);
     if(bBtnOn == BTN_STATE_ON)
     {  
-      switch (TestAppMode) { 
-      case TESTAPP_ONOFF_ALL:
-        setAllLed(PIN_SET_ON);
-        break;
-      case TESTAPP_TOGGLE_ALL:
-        setAllToggleLed(PIN_SET_ON);
-        break;
-      case TESTAPP_STEP_BY_STEP:
-        BlinkStart(PIN_SET_ON);
-        break;  
-      case TESTAPP_SHIFT:
-      case TESTAPP_SHIFT_ROUND:
-        setLedShiftTest(PIN_SET_ON);
-          break;          
-      }
+      doTurnOnProc();
     }
     uint8_t bBtnOff = ReadButton(TURN_OFF_BTN);
     if(bBtnOff == BTN_STATE_ON)
     {  
-      switch (TestAppMode) { 
-      case TESTAPP_ONOFF_ALL:
+      doTurnOnProc();  
+    }   
+
+}
+
+void doTurnOnProc(void)
+{
+    switch (TestAppMode) { 
+    case TESTAPP_ONOFF_ALL:
+      setAllLed(PIN_SET_ON);
+      break;
+    case TESTAPP_TOGGLE_ALL:
+      setAllToggleLed(PIN_SET_ON);
+      break;
+    case TESTAPP_STEP_BY_STEP:
+      BlinkStart(PIN_SET_ON);
+      break;  
+    case TESTAPP_SHIFT:
+        setLedShiftTest(PIN_SET_ON);
+        break;         
+    case TESTAPP_SHIFT_ROUND:
+        setLedShiftRoundTest(PIN_SET_ON);
+        break;         
+    default:
         setAllLed(PIN_SET_OFF);
-        break;
-      case TESTAPP_TOGGLE_ALL:
-        setAllToggleLed(PIN_SET_OFF);
-        break;
-      case TESTAPP_STEP_BY_STEP:
-        BlinkStart(PIN_SET_OFF);
-        break;  
-      case TESTAPP_SHIFT:
-       case TESTAPP_SHIFT_ROUND:
-       setLedShiftTest(PIN_SET_OFF);
-          break;         
-      }   
-    }    
+        break;          
+    }   
+}
+
+void doTurnOffProc(void)
+{
+    switch (TestAppMode) { 
+    case TESTAPP_ONOFF_ALL:
+      setAllLed(PIN_SET_OFF);
+      break;
+    case TESTAPP_TOGGLE_ALL:
+      setAllToggleLed(PIN_SET_OFF);
+      break;
+    case TESTAPP_STEP_BY_STEP:
+      BlinkStart(PIN_SET_OFF);
+      break;  
+    case TESTAPP_SHIFT:
+        setLedShiftTest(PIN_SET_OFF);
+        break;         
+    case TESTAPP_SHIFT_ROUND:
+        setLedShiftRoundTest(PIN_SET_OFF);
+        break;         
+    default:
+        setAllLed(PIN_SET_OFF);
+        break;          
+    }   
 }
 
 void doTestProc(void)
 { 
     switch (TestAppMode) { 
-
+    case TESTAPP_ONOFF_ALL:
+        setAllLed(PIN_SET_ON);
+        break;
     case TESTAPP_STEP_BY_STEP:
       doBlinkTest();
       break; 
-      
     case TESTAPP_TOGGLE_ALL:
       doToggleTest();
       break;
@@ -199,7 +232,11 @@ void doTestProc(void)
     case TESTAPP_SHIFT_ROUND:
         doLedShiftRoundTest();
         break;           
+    default:
+        setAllLed(PIN_SET_OFF);
+        break;
     }
+
 }
 
 uint8_t ledvar = 1;
@@ -231,6 +268,7 @@ void setLedBin(uint8_t input)
 void setLedShiftTest(uint8_t bOn)
 { 
   bStartShift = bOn;
+  ledvar = 1;
   if(bStartShift == PIN_SET_OFF)
   {
       setAllLed(PIN_SET_OFF);
@@ -242,8 +280,8 @@ void doLedShiftTest(void)
 {
   if(bStartShift == PIN_SET_ON)
   {
-      printf("LED ªÛ≈¬: %d\n", ledvar);
-      printbin(ledvar);
+      //printf("LED ÏÉÅÌÉú: %d\n", ledvar);
+      //printbin(ledvar);
       setLedBin(ledvar);
       
       if (ledvar < 128) {
@@ -253,20 +291,31 @@ void doLedShiftTest(void)
            ledvar = 1; 
       }
       
-      printf("----------------\n");
+      //printf("----------------\n");
 
       HAL_Delay(100);   
   }
 }
 
+void setLedShiftRoundTest(uint8_t bOn)
+{ 
+  bStartShiftRound = bOn;
+  ledvar = 1;
+  directLeft = 1;
+  
+  if(bStartShiftRound == PIN_SET_OFF)
+  {
+      setAllLed(PIN_SET_OFF);
+  }
+
+}
+
 void doLedShiftRoundTest(void)
 {
-    static uint8_t directLeft = 1;
-
-    if( bStartShift == PIN_SET_ON ) 
+    if( bStartShiftRound == PIN_SET_ON ) 
     {  
-      printf("LED ªÛ≈¬: %d\n", ledvar);
-      printbin(ledvar);
+      //printf("Round LED ÏÉÅÌÉú: %d\n", ledvar);
+      //printbin(ledvar);
       setLedBin(ledvar);
       
       if(directLeft == 1) {
@@ -286,8 +335,7 @@ void doLedShiftRoundTest(void)
              ledvar = 1;
         }       
       }
-      
-      printf("----------------\n");
+      //printf("----------------\n");
 
       HAL_Delay(100);   
     }
