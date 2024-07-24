@@ -104,20 +104,20 @@ void increaseNumTest(void)
   
 }
 
-int printnumber(int a, int b)
+int increasenumber2(int a, int b)
 {
   a++;
   b++;
-  printf("[printnumber] a : %d b : %d \n", a, b);
+  printf("[increasenumber2] a : %d b : %d \n", a, b);
 }
 
-void printNumTest(void)
+void increaseNumTest2(void)
 {
   int a = 30;
   int b = 40;
-  printf("[printNumTest]  a :%d b : %d \n", a, b);
-  printnumber(a, b);
-  printf("[printNumTest]  a :%d b : %d \n", a, b);
+  printf("[increaseNumTest2]  a :%d b : %d \n", a, b);
+  increasenumber2(a, b);
+  printf("[increaseNumTest2]  a :%d b : %d \n", a, b);
     
 }
 
